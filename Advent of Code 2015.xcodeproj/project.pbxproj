@@ -23,6 +23,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C677F3342758FC2700BA7427 /* Day 9.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "Day 9.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C6CC14682758F03B006CA598 /* Advent of Code 2015 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Advent of Code 2015"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6CC146B2758F03B006CA598 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -58,6 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				C6CC146B2758F03B006CA598 /* main.swift */,
+				C677F3342758FC2700BA7427 /* Day 9.playground */,
 			);
 			path = "Advent of Code 2015";
 			sourceTree = "<group>";
