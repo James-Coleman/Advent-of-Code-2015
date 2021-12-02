@@ -2,11 +2,11 @@ import Foundation
 
 var greeting = "Hello, playground"
 
-func combinations(of array: [String], soFar: [[String]] = []) -> [[String]] {
+func combinations<T>(of array: [T], soFar: [[T]] = []) -> [[T]] {
     if array.isEmpty {
         return soFar
     } else {
-        let next = array.indices.map { index -> ([String], [[String]]) in
+        let next = array.indices.map { index -> ([T], [[T]]) in
             var copy = array
             let removed = copy.remove(at: index)
             
