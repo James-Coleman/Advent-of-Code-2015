@@ -77,7 +77,6 @@ struct Route {
             for insertionIndex in 0...cities.count {
                 var arrayCopy = cities
                 arrayCopy.insert(city, at: insertionIndex)
-                print(arrayCopy)
                 
                 var totalDistance = 0
                 
@@ -90,13 +89,15 @@ struct Route {
                         totalDistance += distance
                     } else {
                         print("No distance from \(previousCity) to \(city)")
+                        return
                     }
                 }
                 
+                print(arrayCopy)
                 print(totalDistance)
                 
-                if let shortestDistanceUnwrapped = bestDistance {
-                    if totalDistance < shortestDistanceUnwrapped {
+                if let bestDistanceUnwrapped = bestDistance {
+                    if totalDistance < bestDistanceUnwrapped {
                         bestCities = arrayCopy
                         bestDistance = totalDistance
                     }
@@ -112,12 +113,51 @@ struct Route {
     }
 }
 
-var testRoute = Route(cities: [london])
-testRoute.shortestDistance
-testRoute.append(city: dublin)
-testRoute.shortestDistance
-testRoute.append(city: belfast)
-testRoute.shortestDistance // 605 (correct)
-testRoute.visualRoute
+//var testRoute = Route(cities: [london])
+//testRoute.shortestDistance
+//testRoute.append(city: dublin)
+//testRoute.shortestDistance
+//testRoute.append(city: belfast)
+//testRoute.shortestDistance // 605 (correct)
+//testRoute.visualRoute
 
+let exampleInput = """
+    London to Dublin = 464
+    London to Belfast = 518
+    Dublin to Belfast = 141
+    """
 
+var cities = [City]()
+
+for line in exampleInput.components(separatedBy: .newlines) {
+    let components = line.components(separatedBy: .whitespaces)
+    
+    let city1Name = components[0]
+    let city2Name = components[2]
+    let distance = Int(components[4])!
+    
+    let city1 = City(name: city1Name)
+    let city2 = City(name: city2Name)
+    
+    if cities.contains(city1) == false {
+        cities.append(city1)
+    }
+    
+    if cities.contains(city2) == false {
+        cities.append(city2)
+    }
+    
+    cities.first(where: { $0 == city1 })?[city2] = distance
+}
+
+cities.count
+
+var exampleRoute = Route()
+
+for city in cities {
+    exampleRoute.append(city: city)
+}
+
+exampleRoute.cities
+exampleRoute.visualRoute
+exampleRoute.shortestDistance
