@@ -224,12 +224,37 @@ for line in challengeInput.components(separatedBy: .newlines) {
 
 challengeCities.count
 
-var challengeRoute = Route()
+//var challengeRoute = Route()
+//
+//for city in challengeCities {
+//    challengeRoute.append(city: city)
+//}
+//
+//challengeRoute.cities
+//challengeRoute.visualRoute // Straylight -> Tambi -> Snowdin -> Norrath -> Tristram -> Arbre -> AlphaCentauri -> Faerun = 192 (too high)
+//challengeRoute.shortestDistance // 192 (too high)
 
-for city in challengeCities {
-    challengeRoute.append(city: city)
+func combinations<T>(of array: [T], soFar: [[T]] = []) -> [[T]] {
+    if array.isEmpty {
+        return soFar
+    } else {
+        let next = array.indices.map { index -> ([T], [[T]]) in
+            var copy = array
+            let removed = copy.remove(at: index)
+            
+            let newSoFar = soFar.isEmpty ? [[removed]] : soFar.map { soFarArray in
+                return soFarArray + [removed]
+            }
+            
+            return (copy, newSoFar)
+        }
+        
+        return next.flatMap { (nextArray, nextSoFar) in
+            return combinations(of: nextArray, soFar: nextSoFar)
+        }
+    }
 }
 
-challengeRoute.cities
-challengeRoute.visualRoute // Straylight -> Tambi -> Snowdin -> Norrath -> Tristram -> Arbre -> AlphaCentauri -> Faerun = 192 (too high)
-challengeRoute.shortestDistance // 192 (too high)
+//let cityCombinations = combinations(of: challengeCities)
+
+//print(cityCombinations)
