@@ -23,8 +23,8 @@ func sum(of object: Any) -> Int? {
 }
 
 func sum(of json: String) throws -> Int? {
-    if let data1 = json.data(using: .utf8) {
-        let object = try JSONSerialization.jsonObject(with: data1)
+    if let data = json.data(using: .utf8) {
+        let object = try JSONSerialization.jsonObject(with: data)
         
         print(String(reflecting: object))
         
@@ -35,14 +35,69 @@ func sum(of json: String) throws -> Int? {
 }
 
 do {
-    try sum(of: "[1,2,3]")
-    try sum(of: "{\"a\":2,\"b\":4}")
-    try sum(of: "[[[3]]]")
-    try sum(of: "{\"a\":{\"b\":4},\"c\":-1}")
-    try sum(of: "{\"a\":[-1,1]}")
-    try sum(of: "[-1,{\"a\":1}]")
-    try sum(of: "[]")
-    try sum(of: "{}")
+//    try sum(of: "[1,2,3]")
+//    try sum(of: "{\"a\":2,\"b\":4}")
+//    try sum(of: "[[[3]]]")
+//    try sum(of: "{\"a\":{\"b\":4},\"c\":-1}")
+//    try sum(of: "{\"a\":[-1,1]}")
+//    try sum(of: "[-1,{\"a\":1}]")
+//    try sum(of: "[]")
+//    try sum(of: "{}")
+} catch {
+    error
+}
+
+enum JSONError: Error {
+    case red
+}
+
+func sumWithoutRed(_ object: Any, fromDict: Bool = false) throws -> Int? {
+    if let int = object as? Int {
+        return int
+    } else if let array = object as? [Int] {
+        return array.reduce(0, +)
+    } else if let dict = object as? [String: Int] {
+        return dict.values.reduce(0, +)
+    } else if let array = object as? [Any] {
+        return try array.reduce(0) { soFar, next in
+            soFar + (try sumWithoutRed(next) ?? 0)
+        }
+    } else if let dict = object as? [String: Any] {
+        do {
+            let sum = try dict.values.reduce(0) { soFar, next in
+                soFar + (try sumWithoutRed(next, fromDict: true) ?? 0)
+            }
+            return sum
+        } catch {
+            return nil
+        }
+        
+    } else if let string = object as? String {
+        if string == "red" && fromDict {
+            throw JSONError.red
+        }
+    }
+    
+    return nil
+}
+
+func sumWithoutRed(_ json: String) throws -> Int? {
+    if let data = json.data(using: .utf8) {
+        let object = try JSONSerialization.jsonObject(with: data)
+        
+//        print(String(reflecting: object))
+        
+        return try sumWithoutRed(object)
+    }
+    
+    return nil
+}
+
+do {
+    try sumWithoutRed("[1,2,3]")
+    try sumWithoutRed("[1,{\"c\":\"red\",\"b\":2},3]")
+    try sumWithoutRed("{\"d\":\"red\",\"e\":[1,2,3,4],\"f\":5}")
+    try sumWithoutRed("[1,\"red\",5]")
 } catch {
     error
 }
@@ -52,7 +107,10 @@ let puzzleInput = """
     """
 
 do {
-    try sum(of: puzzleInput) // 156366 (correct)
+//    try sum(of: puzzleInput) // 156366 (correct)
+    try sumWithoutRed(puzzleInput) // 96852 (correct)
 } catch {
     error
 }
+
+
