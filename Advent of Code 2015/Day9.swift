@@ -43,6 +43,27 @@ extension City: Hashable {
     }
 }
 
+func combinations<T>(of array: [T], soFar: [[T]] = []) -> [[T]] {
+    if array.isEmpty {
+        return soFar
+    } else {
+        let next = array.indices.map { index -> ([T], [[T]]) in
+            var copy = array
+            let removed = copy.remove(at: index)
+            
+            let newSoFar = soFar.isEmpty ? [[removed]] : soFar.map { soFarArray in
+                return soFarArray + [removed]
+            }
+            
+            return (copy, newSoFar)
+        }
+        
+        return next.flatMap { (nextArray, nextSoFar) in
+            return combinations(of: nextArray, soFar: nextSoFar)
+        }
+    }
+}
+
 func day9() {
     
     let challengeInput = """
@@ -100,27 +121,6 @@ func day9() {
         let realCity2 = challengeCities.first(where: { $0 == city2 })!
         
         realCity1[realCity2] = distance
-    }
-    
-    func combinations<T>(of array: [T], soFar: [[T]] = []) -> [[T]] {
-        if array.isEmpty {
-            return soFar
-        } else {
-            let next = array.indices.map { index -> ([T], [[T]]) in
-                var copy = array
-                let removed = copy.remove(at: index)
-                
-                let newSoFar = soFar.isEmpty ? [[removed]] : soFar.map { soFarArray in
-                    return soFarArray + [removed]
-                }
-                
-                return (copy, newSoFar)
-            }
-            
-            return next.flatMap { (nextArray, nextSoFar) in
-                return combinations(of: nextArray, soFar: nextSoFar)
-            }
-        }
     }
     
     let cityCombinations = combinations(of: challengeCities)
