@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C620EC6D275985B5007FBDFA /* Day9.swift in Sources */ = {isa = PBXBuildFile; fileRef = C620EC6C275985B5007FBDFA /* Day9.swift */; };
+		C6A35862275A1A6100526EB9 /* Day10.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A35861275A1A6100526EB9 /* Day10.swift */; };
 		C6CC146C2758F03B006CA598 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6CC146B2758F03B006CA598 /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -26,6 +27,8 @@
 /* Begin PBXFileReference section */
 		C620EC6C275985B5007FBDFA /* Day9.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day9.swift; sourceTree = "<group>"; };
 		C677F3342758FC2700BA7427 /* Day 9.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "Day 9.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		C6A35860275A165100526EB9 /* Day 10.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "Day 10.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		C6A35861275A1A6100526EB9 /* Day10.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day10.swift; sourceTree = "<group>"; };
 		C6CC14682758F03B006CA598 /* Advent of Code 2015 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Advent of Code 2015"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6CC146B2758F03B006CA598 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -62,7 +65,9 @@
 			children = (
 				C6CC146B2758F03B006CA598 /* main.swift */,
 				C620EC6C275985B5007FBDFA /* Day9.swift */,
+				C6A35861275A1A6100526EB9 /* Day10.swift */,
 				C677F3342758FC2700BA7427 /* Day 9.playground */,
+				C6A35860275A165100526EB9 /* Day 10.playground */,
 			);
 			path = "Advent of Code 2015";
 			sourceTree = "<group>";
@@ -126,6 +131,7 @@
 			files = (
 				C6CC146C2758F03B006CA598 /* main.swift in Sources */,
 				C620EC6D275985B5007FBDFA /* Day9.swift in Sources */,
+				C6A35862275A1A6100526EB9 /* Day10.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
