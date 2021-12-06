@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C6161C50275E652C0002AA50 /* Day17.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6161C4F275E652C0002AA50 /* Day17.swift */; };
 		C620EC6D275985B5007FBDFA /* Day9.swift in Sources */ = {isa = PBXBuildFile; fileRef = C620EC6C275985B5007FBDFA /* Day9.swift */; };
 		C6A35862275A1A6100526EB9 /* Day10.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A35861275A1A6100526EB9 /* Day10.swift */; };
 		C6A35865275A3F1F00526EB9 /* Day11.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A35864275A3F1F00526EB9 /* Day11.swift */; };
@@ -30,6 +31,8 @@
 /* Begin PBXFileReference section */
 		C6161C4C275E43680002AA50 /* Day 15 - Science for Hungry People.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "Day 15 - Science for Hungry People.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C6161C4D275E4B8F0002AA50 /* Day 16 - Aunt Sue.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "Day 16 - Aunt Sue.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		C6161C4E275E5D670002AA50 /* Day 17 - No Such Thing as Too Much.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "Day 17 - No Such Thing as Too Much.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		C6161C4F275E652C0002AA50 /* Day17.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day17.swift; sourceTree = "<group>"; };
 		C620EC6C275985B5007FBDFA /* Day9.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day9.swift; sourceTree = "<group>"; };
 		C677F3342758FC2700BA7427 /* Day 9.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "Day 9.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C6A35860275A165100526EB9 /* Day 10.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "Day 10.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -81,6 +84,7 @@
 				C6A35864275A3F1F00526EB9 /* Day11.swift */,
 				C6A35868275A7C8F00526EB9 /* Day13.swift */,
 				C6DF7622275AB8140087EF16 /* Day14.swift */,
+				C6161C4F275E652C0002AA50 /* Day17.swift */,
 				C677F3342758FC2700BA7427 /* Day 9.playground */,
 				C6A35860275A165100526EB9 /* Day 10.playground */,
 				C6A35863275A1D5D00526EB9 /* Day 11.playground */,
@@ -89,6 +93,7 @@
 				C6A3586A275A852300526EB9 /* Day 14.playground */,
 				C6161C4C275E43680002AA50 /* Day 15 - Science for Hungry People.playground */,
 				C6161C4D275E4B8F0002AA50 /* Day 16 - Aunt Sue.playground */,
+				C6161C4E275E5D670002AA50 /* Day 17 - No Such Thing as Too Much.playground */,
 			);
 			path = "Advent of Code 2015";
 			sourceTree = "<group>";
@@ -156,6 +161,7 @@
 				C6A35865275A3F1F00526EB9 /* Day11.swift in Sources */,
 				C6A35862275A1A6100526EB9 /* Day10.swift in Sources */,
 				C6DF7623275AB8140087EF16 /* Day14.swift in Sources */,
+				C6161C50275E652C0002AA50 /* Day17.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
