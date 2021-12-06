@@ -92,6 +92,7 @@ struct Sue {
         self.perfumes = localPerfumes
     }
     
+    /// Part 1
     func couldBe(otherSue: Sue) -> Bool {
         if let children = self.children, let otherChildren = otherSue.children, children != otherChildren {
             return false
@@ -122,6 +123,51 @@ struct Sue {
         }
         
         if let trees = self.trees, let otherTrees = otherSue.trees, trees != otherTrees {
+            return false
+        }
+        
+        if let cars = self.cars, let otherCars = otherSue.cars, cars != otherCars {
+            return false
+        }
+        
+        if let perfumes = self.perfumes, let otherPerfumes = otherSue.perfumes, perfumes != otherPerfumes {
+            return false
+        }
+        
+        return true
+    }
+    
+    /// Part 2
+    func couldBe2(otherSue: Sue) -> Bool {
+        if let children = self.children, let otherChildren = otherSue.children, children != otherChildren {
+            return false
+        }
+        
+        if let cats = self.cats, let otherCats = otherSue.cats, cats < otherCats {
+            return false
+        }
+        
+        if let samoyeds = self.samoyeds, let otherSamoyeds = otherSue.samoyeds, samoyeds != otherSamoyeds {
+            return false
+        }
+        
+        if let pomeranians = self.pomeranians, let otherPomeranians = otherSue.pomeranians, pomeranians > otherPomeranians {
+            return false
+        }
+        
+        if let akitas = self.akitas, let otherAkitas = otherSue.akitas, akitas != otherAkitas {
+            return false
+        }
+        
+        if let vizslas = self.vizslas, let otherVizslas = otherSue.vizslas, vizslas != otherVizslas {
+            return false
+        }
+        
+        if let goldfish = self.goldfish, let otherGoldfish = otherSue.goldfish, goldfish > otherGoldfish {
+            return false
+        }
+        
+        if let trees = self.trees, let otherTrees = otherSue.trees, trees < otherTrees {
             return false
         }
         
@@ -645,10 +691,16 @@ let challengeInput = """
     Sue 500: cars: 1, perfumes: 6, vizslas: 1
     """
 
-//let challengeLines = challengeInput.components(separatedBy: .newlines)
+let challengeLines = challengeInput.components(separatedBy: .newlines)
 
-//let sues = challengeLines.map { Sue(string: $0) }
+let sues = challengeLines.map { Sue(string: $0) }
 
-//let filteredSues = sues.filter { $0.couldBe(otherSue: realSue) }
+//let part1FilteredSues = sues.filter { $0.couldBe(otherSue: realSue) }
 
-//print(filteredSues) // 213 (correct)
+//print(part1FilteredSues) // 213 (correct)
+
+let part2FilteredSues = sues.filter { $0.couldBe2(otherSue: realSue) }
+
+part2FilteredSues.count
+
+print(part2FilteredSues) // 323 (correct)
