@@ -29,6 +29,7 @@
 
 /* Begin PBXFileReference section */
 		C6161C4C275E43680002AA50 /* Day 15 - Science for Hungry People.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "Day 15 - Science for Hungry People.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		C6161C4D275E4B8F0002AA50 /* Day 16 - Aunt Sue.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "Day 16 - Aunt Sue.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C620EC6C275985B5007FBDFA /* Day9.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day9.swift; sourceTree = "<group>"; };
 		C677F3342758FC2700BA7427 /* Day 9.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "Day 9.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C6A35860275A165100526EB9 /* Day 10.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "Day 10.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -87,6 +88,7 @@
 				C6A35867275A6CE800526EB9 /* Day 13.playground */,
 				C6A3586A275A852300526EB9 /* Day 14.playground */,
 				C6161C4C275E43680002AA50 /* Day 15 - Science for Hungry People.playground */,
+				C6161C4D275E4B8F0002AA50 /* Day 16 - Aunt Sue.playground */,
 			);
 			path = "Advent of Code 2015";
 			sourceTree = "<group>";
