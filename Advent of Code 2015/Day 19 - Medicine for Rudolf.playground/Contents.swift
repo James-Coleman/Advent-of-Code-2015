@@ -40,7 +40,7 @@ let exampleInput = """
     O => HH
     """
 
-let exampleReplacements = replacements(from: exampleInput)
+//let exampleReplacements = replacements(from: exampleInput)
 
 /**
  - Returns:
@@ -78,10 +78,10 @@ func indexes(of query: String, in string: String) -> [[Int]] {
     return arrayToReturn
 }
 
-indexes(of: "H", in: "HOH")
-indexes(of: "HO", in: "HOH")
-indexes(of: "OH", in: "HOH")
-indexes(of: "HOH", in: "HOH")
+//indexes(of: "H", in: "HOH")
+//indexes(of: "HO", in: "HOH")
+//indexes(of: "OH", in: "HOH")
+//indexes(of: "HOH", in: "HOH")
 
 func molecules(of input: String, replacements: [String: [String]]) -> Set<String> {
     var setToReturn = Set<String>()
@@ -98,16 +98,20 @@ func molecules(of input: String, replacements: [String: [String]]) -> Set<String
                 for replacement in value {
                     var inputCopy = input
                     inputCopy.replaceSubrange(range, with: replacement)
+//                    print(inputCopy)
+//                    print("replaced \(key) at \(first) with \(replacement)")
                     setToReturn.insert(inputCopy)
                 }
             } else if let first = occurrence.first, let last = occurrence.last {
                 let firstIndex = String.Index(utf16Offset: first, in: input)
                 let lastIndex = String.Index(utf16Offset: last, in: input)
-                let range = firstIndex..<lastIndex
+                let range = firstIndex...lastIndex
                 
                 for replacement in value {
                     var inputCopy = input
                     inputCopy.replaceSubrange(range, with: replacement)
+//                    print(inputCopy)
+//                    print("replaced \(key) between \(first) and \(last) with \(replacement)")
                     setToReturn.insert(inputCopy)
                 }
             }
@@ -117,6 +121,59 @@ func molecules(of input: String, replacements: [String: [String]]) -> Set<String
     return setToReturn
 }
 
-molecules(of: "HOH", replacements: exampleReplacements)
-molecules(of: "HOHOHO", replacements: exampleReplacements)
+//molecules(of: "HOH", replacements: exampleReplacements)
+//molecules(of: "HOHOHO", replacements: exampleReplacements)
 
+let puzzleCombinationsInput = """
+    Al => ThF
+    Al => ThRnFAr
+    B => BCa
+    B => TiB
+    B => TiRnFAr
+    Ca => CaCa
+    Ca => PB
+    Ca => PRnFAr
+    Ca => SiRnFYFAr
+    Ca => SiRnMgAr
+    Ca => SiTh
+    F => CaF
+    F => PMg
+    F => SiAl
+    H => CRnAlAr
+    H => CRnFYFYFAr
+    H => CRnFYMgAr
+    H => CRnMgYFAr
+    H => HCa
+    H => NRnFYFAr
+    H => NRnMgAr
+    H => NTh
+    H => OB
+    H => ORnFAr
+    Mg => BF
+    Mg => TiMg
+    N => CRnFAr
+    N => HSi
+    O => CRnFYFAr
+    O => CRnMgAr
+    O => HP
+    O => NRnFAr
+    O => OTi
+    P => CaP
+    P => PTi
+    P => SiRnFAr
+    Si => CaSi
+    Th => ThCa
+    Ti => BP
+    Ti => TiTi
+    e => HF
+    e => NAl
+    e => OMg
+    """
+
+let puzzleReplacements = replacements(from: puzzleCombinationsInput)
+
+let puzzleInitialMolecule = "CRnCaCaCaSiRnBPTiMgArSiRnSiRnMgArSiRnCaFArTiTiBSiThFYCaFArCaCaSiThCaPBSiThSiThCaCaPTiRnPBSiThRnFArArCaCaSiThCaSiThSiRnMgArCaPTiBPRnFArSiThCaSiRnFArBCaSiRnCaPRnFArPMgYCaFArCaPTiTiTiBPBSiThCaPTiBPBSiRnFArBPBSiRnCaFArBPRnSiRnFArRnSiRnBFArCaFArCaCaCaSiThSiThCaCaPBPTiTiRnFArCaPTiBSiAlArPBCaCaCaCaCaSiRnMgArCaSiThFArThCaSiThCaSiRnCaFYCaSiRnFYFArFArCaSiRnFYFArCaSiRnBPMgArSiThPRnFArCaSiRnFArTiRnSiRnFYFArCaSiRnBFArCaSiRnTiMgArSiThCaSiThCaFArPRnFArSiRnFArTiTiTiTiBCaCaSiRnCaCaFYFArSiThCaPTiBPTiBCaSiThSiRnMgArCaF"
+
+let puzzleMolecules = molecules(of: puzzleInitialMolecule, replacements: puzzleReplacements)
+
+puzzleMolecules.count // 535 (correct)
