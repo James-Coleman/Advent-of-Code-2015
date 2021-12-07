@@ -92,6 +92,12 @@ func day18() {
         static func nextStep(_ input: [[Light]]) {
             for row in input {
                 for light in row {
+                    if light.neighbours.count == 3 {
+                        // corner, should always be on
+                        light.nextState = true
+                        continue
+                    }
+                    
                     let neighboursOn = light.neighbours.filter { $0.on }
                     let neighboursOnCount = neighboursOn.count
                     
@@ -221,5 +227,5 @@ func day18() {
     }
 
     let puzzleAnswer = puzzleLights.flatMap { $0.filter { $0.on }}.count
-    print(puzzleAnswer) // 768 (correct)
+    print(puzzleAnswer) // 768 (correct) // 781 (correct)
 }
