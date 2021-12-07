@@ -33,7 +33,6 @@ func replacements(from input: String) -> [String: [String]] {
     return dictToReturn
 }
 
-
 let exampleInput = """
     H => HO
     H => OH
@@ -41,6 +40,29 @@ let exampleInput = """
     """
 
 let exampleReplacements = replacements(from: exampleInput)
+
+func reverseReplacements(from input: String) -> [String: [String]] {
+    var dictToReturn = [String: [String]]()
+    
+    let lines = input.components(separatedBy: .newlines)
+    
+    for line in lines {
+        let components = line.components(separatedBy: .whitespaces)
+        let key = components[2] // Note swapped key and value indexes
+        let value = components[0]
+        
+        if let existingArray = dictToReturn[key] {
+            let newArray = existingArray + [value]
+            dictToReturn[key] = newArray
+        } else {
+            dictToReturn[key] = [value]
+        }
+    }
+    
+    return dictToReturn
+}
+
+let exampleReverseReplacements = reverseReplacements(from: exampleInput)
 
 /**
  - Returns:
@@ -203,6 +225,34 @@ func stepsTo(create input: String, with replacements: [String: [String]]) -> Int
     return steps
 }
 
+func reverseStepsTo(reach molecule: String, with replacements: [String: [String]]) -> Int {
+    var seeds = Set<String>([molecule])
+    var steps = 0
+    
+    while seeds.contains("e") == false {
+        var newSeeds = seeds
+        
+        for seed in seeds {
+            let molecules = molecules(of: seed, replacements: replacements)
+            newSeeds.formUnion(molecules)
+            if molecules.contains("e") {
+                break
+            }
+        }
+        
+        steps += 1
+        
+        if seeds == newSeeds {
+            print("did nothing")
+            break
+        }
+        
+        seeds = newSeeds
+    }
+    
+    return steps
+}
+
 let newExampleInput = """
     e => H
     e => O
@@ -216,4 +266,10 @@ let newExampleInput = """
 //stepsTo(create: "HOH", with: newReplacements)
 //stepsTo(create: "HOHOHO", with: newReplacements)
 
-print(stepsTo(create: puzzleInitialMolecule, with: puzzleReplacements))
+//print(stepsTo(create: puzzleInitialMolecule, with: puzzleReplacements))
+
+let newReverseReplacements = reverseReplacements(from: newExampleInput)
+
+reverseStepsTo(reach: "HOH", with: newReverseReplacements)
+reverseStepsTo(reach: "HOHOHO", with: newReverseReplacements)
+

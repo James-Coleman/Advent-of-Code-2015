@@ -28,6 +28,27 @@ func day19() {
         
         return dictToReturn
     }
+    
+    func reverseReplacements(from input: String) -> [String: [String]] {
+        var dictToReturn = [String: [String]]()
+        
+        let lines = input.components(separatedBy: .newlines)
+        
+        for line in lines {
+            let components = line.components(separatedBy: .whitespaces)
+            let key = components[2] // Note swapped key and value indexes
+            let value = components[0]
+            
+            if let existingArray = dictToReturn[key] {
+                let newArray = existingArray + [value]
+                dictToReturn[key] = newArray
+            } else {
+                dictToReturn[key] = [value]
+            }
+        }
+        
+        return dictToReturn
+    }
 
     /**
      - Returns:
@@ -147,7 +168,9 @@ func day19() {
 
     let puzzleInitialMolecule = "CRnCaCaCaSiRnBPTiMgArSiRnSiRnMgArSiRnCaFArTiTiBSiThFYCaFArCaCaSiThCaPBSiThSiThCaCaPTiRnPBSiThRnFArArCaCaSiThCaSiThSiRnMgArCaPTiBPRnFArSiThCaSiRnFArBCaSiRnCaPRnFArPMgYCaFArCaPTiTiTiBPBSiThCaPTiBPBSiRnFArBPBSiRnCaFArBPRnSiRnFArRnSiRnBFArCaFArCaCaCaSiThSiThCaCaPBPTiTiRnFArCaPTiBSiAlArPBCaCaCaCaCaSiRnMgArCaSiThFArThCaSiThCaSiRnCaFYCaSiRnFYFArFArCaSiRnFYFArCaSiRnBPMgArSiThPRnFArCaSiRnFArTiRnSiRnFYFArCaSiRnBFArCaSiRnTiMgArSiThCaSiThCaFArPRnFArSiRnFArTiTiTiTiBCaCaSiRnCaCaFYFArSiThCaPTiBPTiBCaSiThSiRnMgArCaF"
 
-    let puzzleReplacements = replacements(from: puzzleCombinationsInput)
+//    let puzzleReplacements = replacements(from: puzzleCombinationsInput)
+    
+    let reversePuzzleReplacements = reverseReplacements(from: puzzleCombinationsInput)
 
     func stepsTo(create input: String, with replacements: [String: [String]]) -> Int {
         var seeds = Set<String>(["e"])
@@ -174,5 +197,35 @@ func day19() {
         return steps
     }
     
-    print(stepsTo(create: puzzleInitialMolecule, with: puzzleReplacements))
+    func reverseStepsTo(reach molecule: String, with replacements: [String: [String]]) -> Int {
+        var seeds = Set<String>([molecule])
+        var steps = 0
+        
+        while seeds.contains("e") == false {
+            var newSeeds = seeds
+            
+            for seed in seeds {
+                let molecules = molecules(of: seed, replacements: replacements)
+                newSeeds.formUnion(molecules)
+                if molecules.contains("e") {
+                    break
+                }
+            }
+            
+            steps += 1
+            
+            if seeds == newSeeds {
+                print("did nothing")
+                break
+            }
+            
+            seeds = newSeeds
+        }
+        
+        return steps
+    }
+    
+//    print(stepsTo(create: puzzleInitialMolecule, with: puzzleReplacements))
+    
+    print(reverseStepsTo(reach: puzzleInitialMolecule, with: reversePuzzleReplacements))
 }
