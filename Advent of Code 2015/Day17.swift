@@ -109,5 +109,11 @@ func day17() {
                                        40]
 
     let part1 = setCombinations(of: puzzleInput, target: 150)
-    print(part1.count) // 654 (correct)
+//    print(part1.count) // 654 (correct)
+    
+    guard let minimumContainers = part1.map { $0.count }.sorted(by: <).first else { return }
+    
+    let filtered = part1.filter { $0.count == minimumContainers }
+    
+    print(filtered.count) // 57 (correct)
 }
