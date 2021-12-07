@@ -40,7 +40,7 @@ let exampleInput = """
     O => HH
     """
 
-//let exampleReplacements = replacements(from: exampleInput)
+let exampleReplacements = replacements(from: exampleInput)
 
 /**
  - Returns:
@@ -170,10 +170,50 @@ let puzzleCombinationsInput = """
     e => OMg
     """
 
-let puzzleReplacements = replacements(from: puzzleCombinationsInput)
-
 let puzzleInitialMolecule = "CRnCaCaCaSiRnBPTiMgArSiRnSiRnMgArSiRnCaFArTiTiBSiThFYCaFArCaCaSiThCaPBSiThSiThCaCaPTiRnPBSiThRnFArArCaCaSiThCaSiThSiRnMgArCaPTiBPRnFArSiThCaSiRnFArBCaSiRnCaPRnFArPMgYCaFArCaPTiTiTiBPBSiThCaPTiBPBSiRnFArBPBSiRnCaFArBPRnSiRnFArRnSiRnBFArCaFArCaCaCaSiThSiThCaCaPBPTiTiRnFArCaPTiBSiAlArPBCaCaCaCaCaSiRnMgArCaSiThFArThCaSiThCaSiRnCaFYCaSiRnFYFArFArCaSiRnFYFArCaSiRnBPMgArSiThPRnFArCaSiRnFArTiRnSiRnFYFArCaSiRnBFArCaSiRnTiMgArSiThCaSiThCaFArPRnFArSiRnFArTiTiTiTiBCaCaSiRnCaCaFYFArSiThCaPTiBPTiBCaSiThSiRnMgArCaF"
 
-let puzzleMolecules = molecules(of: puzzleInitialMolecule, replacements: puzzleReplacements)
+let puzzleReplacements = replacements(from: puzzleCombinationsInput)
 
-puzzleMolecules.count // 535 (correct)
+//let puzzleMolecules = molecules(of: puzzleInitialMolecule, replacements: puzzleReplacements)
+
+//puzzleMolecules.count // 535 (correct)
+
+func stepsTo(create input: String, with replacements: [String: [String]]) -> Int {
+    var seeds = Set<String>(["e"])
+    var steps = 0
+    
+    while seeds.contains(input) == false {
+        var newSeeds = seeds
+        
+        for seed in seeds {
+            let molecules = molecules(of: seed, replacements: replacements)
+            newSeeds.formUnion(molecules)
+        }
+        
+        steps += 1
+        
+        if seeds == newSeeds {
+            print("did nothing")
+            break
+        }
+        
+        seeds = newSeeds
+    }
+    
+    return steps
+}
+
+let newExampleInput = """
+    e => H
+    e => O
+    H => HO
+    H => OH
+    O => HH
+    """
+
+//let newReplacements = replacements(from: newExampleInput)
+
+//stepsTo(create: "HOH", with: newReplacements)
+//stepsTo(create: "HOHOHO", with: newReplacements)
+
+print(stepsTo(create: puzzleInitialMolecule, with: puzzleReplacements))
