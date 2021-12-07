@@ -27,56 +27,87 @@ extension Container: CustomStringConvertible {
 extension Container: Hashable { }
 
 func day17() {
-    func can(containers: [Container], fill: Int) -> Set<Container>? {
+    enum Goldilocks {
+        case tooLow
+        case justRight
+        case tooHigh
+    }
+
+    func can(_ containers: Set<Container>, fill: Int) -> Goldilocks {
         var fill = fill
-        var containersToReturn = Set<Container>()
         
         for container in containers {
             fill -= container.volume
-            containersToReturn.insert(container)
             
-    //        print(fill, container, containersToReturn)
-            
-            if fill == 0 {
-                return containersToReturn
-            } else if fill < 0 {
-                return nil
+            if fill < 0 {
+                return .tooHigh
             }
         }
         
         if fill == 0 {
-            return containersToReturn
+            return .justRight
+        } else if fill < 0 {
+            return .tooHigh
         } else {
-            return nil
+            return .tooLow
         }
     }
 
-    let puzzleInput: [Container] = [50,
-                                    44,
-                                    11,
-                                    49,
-                                    42,
-                                    46,
-                                    18,
-                                    32,
-                                    26,
-                                    40,
-                                    21,
-                                    7,
-                                    18,
-                                    43,
-                                    10,
-                                    47,
-                                    36,
-                                    24,
-                                    22,
-                                    40]
+    func setCombinations(of containers: Set<Container>, target: Int) -> Set<Set<Container>> {
+        var inProgress = Set<Set<Container>>()
+        var done = Set<Set<Container>>()
+        
+        for _ in 0..<containers.count {
+            if inProgress.isEmpty {
+                for container in containers {
+                    let seed: Set<Container> = [container]
+                    inProgress.insert(seed)
+                }
+            }
+            
+            for inProgressSet in inProgress {
+                for container in containers {
+                    var inProgressSet = inProgressSet
+                    inProgressSet.insert(container)
+                    let result = can(inProgressSet, fill: target)
+                    switch result {
+                        case .tooLow:
+                            inProgress.insert(inProgressSet)
+                        case .justRight:
+                            done.insert(inProgressSet)
+                        case .tooHigh:
+                            continue
+                    }
+                }
+                
+                inProgress.remove(inProgressSet)
+            }
+        }
+        
+        return done
+    }
+    
+    let puzzleInput: Set<Container> = [50,
+                                       44,
+                                       11,
+                                       49,
+                                       42,
+                                       46,
+                                       18,
+                                       32,
+                                       26,
+                                       40,
+                                       21,
+                                       7,
+                                       18,
+                                       43,
+                                       10,
+                                       47,
+                                       36,
+                                       24,
+                                       22,
+                                       40]
 
-    let puzzleCombinations = combinations(of: puzzleInput)
-
-    let puzzleFillingCombinations = puzzleCombinations.compactMap { can(containers: $0, fill: 150) }
-
-    let uniquePuzzleCombinations = Set(puzzleFillingCombinations)
-
-    print(uniquePuzzleCombinations.count)
+    let part1 = setCombinations(of: puzzleInput, target: 150)
+    print(part1.count) // 654 (correct)
 }
