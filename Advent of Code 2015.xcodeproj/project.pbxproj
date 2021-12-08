@@ -14,6 +14,7 @@
 		C6A35869275A7C8F00526EB9 /* Day13.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A35868275A7C8F00526EB9 /* Day13.swift */; };
 		C6C0AFE5275F96D800E1D404 /* Day18.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C0AFE4275F96D800E1D404 /* Day18.swift */; };
 		C6C0AFE8275FCAB500E1D404 /* Day19.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C0AFE7275FCAB500E1D404 /* Day19.swift */; };
+		C6C0AFEC2761096400E1D404 /* Day20.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C0AFEB2761096400E1D404 /* Day20.swift */; };
 		C6CC146C2758F03B006CA598 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6CC146B2758F03B006CA598 /* main.swift */; };
 		C6DF7623275AB8140087EF16 /* Day14.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DF7622275AB8140087EF16 /* Day14.swift */; };
 /* End PBXBuildFile section */
@@ -49,6 +50,8 @@
 		C6C0AFE4275F96D800E1D404 /* Day18.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day18.swift; sourceTree = "<group>"; };
 		C6C0AFE6275F9D7300E1D404 /* Day 19 - Medicine for Rudolf.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "Day 19 - Medicine for Rudolf.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C6C0AFE7275FCAB500E1D404 /* Day19.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day19.swift; sourceTree = "<group>"; };
+		C6C0AFEA2761074D00E1D404 /* Day 20 - Infinite Elves and Infinite Houses.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "Day 20 - Infinite Elves and Infinite Houses.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		C6C0AFEB2761096400E1D404 /* Day20.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day20.swift; sourceTree = "<group>"; };
 		C6CC14682758F03B006CA598 /* Advent of Code 2015 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Advent of Code 2015"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6CC146B2758F03B006CA598 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		C6DF7622275AB8140087EF16 /* Day14.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day14.swift; sourceTree = "<group>"; };
@@ -93,6 +96,7 @@
 				C6161C4F275E652C0002AA50 /* Day17.swift */,
 				C6C0AFE4275F96D800E1D404 /* Day18.swift */,
 				C6C0AFE7275FCAB500E1D404 /* Day19.swift */,
+				C6C0AFEB2761096400E1D404 /* Day20.swift */,
 				C677F3342758FC2700BA7427 /* Day 9.playground */,
 				C6A35860275A165100526EB9 /* Day 10.playground */,
 				C6A35863275A1D5D00526EB9 /* Day 11.playground */,
@@ -104,6 +108,7 @@
 				C6161C4E275E5D670002AA50 /* Day 17 - No Such Thing as Too Much.playground */,
 				C6161C51275F801E0002AA50 /* Day 18 - Like a GIF For Your Yard.playground */,
 				C6C0AFE6275F9D7300E1D404 /* Day 19 - Medicine for Rudolf.playground */,
+				C6C0AFEA2761074D00E1D404 /* Day 20 - Infinite Elves and Infinite Houses.playground */,
 			);
 			path = "Advent of Code 2015";
 			sourceTree = "<group>";
@@ -165,6 +170,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6C0AFEC2761096400E1D404 /* Day20.swift in Sources */,
 				C6A35869275A7C8F00526EB9 /* Day13.swift in Sources */,
 				C6CC146C2758F03B006CA598 /* main.swift in Sources */,
 				C620EC6D275985B5007FBDFA /* Day9.swift in Sources */,
