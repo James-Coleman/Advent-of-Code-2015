@@ -225,6 +225,7 @@ func stepsTo(create input: String, with replacements: [String: [String]]) -> Int
     return steps
 }
 
+// Keep track of previous steps to avoid re-trying again?
 func reverseStepsTo(reach molecule: String, with replacements: [String: [String]]) -> Int {
     var seeds = Set<String>([molecule])
     var steps = 0
@@ -253,6 +254,55 @@ func reverseStepsTo(reach molecule: String, with replacements: [String: [String]
     return steps
 }
 
+func recursiveReverseStepsTo(reach molecule: String, with replacements: [String: [String]], currentStep: Int = 1, seeds: Set<String>? = nil, completedSteps: Set<String> = []) -> Int {
+    let seeds = seeds ?? [molecule]
+    
+    var newSeeds = Set<String>()
+    
+    for seed in seeds {
+        let molecules = molecules(of: seed, replacements: replacements)
+        if molecules.contains("e") {
+            return currentStep
+        }
+        let newMolecules = molecules.subtracting(completedSteps)
+        newSeeds.formUnion(newMolecules)
+    }
+    
+    return recursiveReverseStepsTo(reach: molecule, with: replacements, currentStep: currentStep + 1, seeds: newSeeds, completedSteps: completedSteps.union(newSeeds))
+}
+
+func reverseStateAfter(steps targetSteps: Int, toReach molecule: String, with replacements: [String: [String]]) -> Set<String> {
+    var seeds = Set<String>([molecule])
+    var steps = 0
+    
+    while seeds.contains("e") == false {
+        var newSeeds = seeds
+        
+        for seed in seeds {
+            let molecules = molecules(of: seed, replacements: replacements)
+            newSeeds.formUnion(molecules)
+            if molecules.contains("e") {
+                break
+            }
+        }
+        
+        steps += 1
+        
+        if seeds == newSeeds {
+            print("did nothing")
+            break
+        }
+        
+        seeds = newSeeds
+        
+        if steps == targetSteps {
+            return seeds
+        }
+    }
+    
+    return seeds
+}
+
 let newExampleInput = """
     e => H
     e => O
@@ -270,6 +320,10 @@ let newExampleInput = """
 
 let newReverseReplacements = reverseReplacements(from: newExampleInput)
 
-reverseStepsTo(reach: "HOH", with: newReverseReplacements)
+//reverseStepsTo(reach: "HOH", with: newReverseReplacements)
 reverseStepsTo(reach: "HOHOHO", with: newReverseReplacements)
+recursiveReverseStepsTo(reach: "HOHOHO", with: newReverseReplacements)
+
+//let test = reverseStateAfter(steps: 6, toReach: "HOHOHO", with: newReverseReplacements)
+//test.count
 

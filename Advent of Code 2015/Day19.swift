@@ -168,9 +168,9 @@ func day19() {
 
     let puzzleInitialMolecule = "CRnCaCaCaSiRnBPTiMgArSiRnSiRnMgArSiRnCaFArTiTiBSiThFYCaFArCaCaSiThCaPBSiThSiThCaCaPTiRnPBSiThRnFArArCaCaSiThCaSiThSiRnMgArCaPTiBPRnFArSiThCaSiRnFArBCaSiRnCaPRnFArPMgYCaFArCaPTiTiTiBPBSiThCaPTiBPBSiRnFArBPBSiRnCaFArBPRnSiRnFArRnSiRnBFArCaFArCaCaCaSiThSiThCaCaPBPTiTiRnFArCaPTiBSiAlArPBCaCaCaCaCaSiRnMgArCaSiThFArThCaSiThCaSiRnCaFYCaSiRnFYFArFArCaSiRnFYFArCaSiRnBPMgArSiThPRnFArCaSiRnFArTiRnSiRnFYFArCaSiRnBFArCaSiRnTiMgArSiThCaSiThCaFArPRnFArSiRnFArTiTiTiTiBCaCaSiRnCaCaFYFArSiThCaPTiBPTiBCaSiThSiRnMgArCaF"
 
-//    let puzzleReplacements = replacements(from: puzzleCombinationsInput)
+    let puzzleReplacements = replacements(from: puzzleCombinationsInput)
     
-    let reversePuzzleReplacements = reverseReplacements(from: puzzleCombinationsInput)
+//    let reversePuzzleReplacements = reverseReplacements(from: puzzleCombinationsInput)
 
     func stepsTo(create input: String, with replacements: [String: [String]]) -> Int {
         var seeds = Set<String>(["e"])
@@ -195,6 +195,42 @@ func day19() {
         }
         
         return steps
+    }
+    
+    func multithreadedRecursiveStepsTo(create input: String, with replacements: [String: [String]], currentStep: Int = 1, seeds: Set<String>? = nil, completedSteps: Set<String> = []) -> Int {
+        let seeds = seeds ?? ["e"]
+        
+//        print("Step \(currentStep) starting with \(seeds.count) seeds")
+        
+        var newSeeds = Set<String>()
+        
+        let parallelQueue = OperationQueue()
+        let serialQueue = DispatchQueue(label: "set", qos: .userInitiated)
+        
+        for seed in seeds {
+            var shouldReturn = false
+            
+            parallelQueue.addOperation {
+                let molecules = molecules(of: seed, replacements: replacements)
+                if molecules.contains(input) {
+                    shouldReturn = true
+                }
+                let newMolecules = molecules.subtracting(completedSteps)
+                serialQueue.sync {
+                    newSeeds.formUnion(newMolecules)
+//                    print("Step \(currentStep) now \(newSeeds.count) seeds")
+                }
+            }
+            
+            if shouldReturn {
+                parallelQueue.cancelAllOperations()
+                return currentStep
+            }
+        }
+        
+        parallelQueue.waitUntilAllOperationsAreFinished()
+
+        return multithreadedRecursiveStepsTo(create: input, with: replacements, currentStep: currentStep + 1, seeds: newSeeds, completedSteps: completedSteps.union(newSeeds))
     }
     
     func reverseStepsTo(reach molecule: String, with replacements: [String: [String]]) -> Int {
@@ -225,7 +261,47 @@ func day19() {
         return steps
     }
     
+    func multithreadedRecursiveReverseStepsTo(reach molecule: String, with replacements: [String: [String]], currentStep: Int = 1, seeds: Set<String>? = nil, completedSteps: Set<String> = []) -> Int {
+        let seeds = seeds ?? [molecule]
+        
+        print("Step \(currentStep) checking \(seeds.count) seeds")
+        
+        var newSeeds = Set<String>()
+        
+        let parallelQueue = OperationQueue()
+        let serialQueue = DispatchQueue(label: "set", qos: .userInitiated)
+        
+        for seed in seeds {
+            var shouldReturn = false
+            
+            parallelQueue.addOperation {
+                let molecules = molecules(of: seed, replacements: replacements)
+                if molecules.contains("e") {
+                    shouldReturn = true
+                }
+                let newMolecules = molecules.subtracting(completedSteps)
+                serialQueue.sync {
+                    newSeeds.formUnion(newMolecules)
+                    print("Step \(currentStep) now \(newSeeds.count) seeds")
+                }
+            }
+            
+            if shouldReturn {
+                parallelQueue.cancelAllOperations()
+                return currentStep
+            }
+        }
+        
+        parallelQueue.waitUntilAllOperationsAreFinished()
+        
+        return multithreadedRecursiveReverseStepsTo(reach: molecule, with: replacements, currentStep: currentStep + 1, seeds: newSeeds, completedSteps: completedSteps.union(newSeeds))
+    }
+    
 //    print(stepsTo(create: puzzleInitialMolecule, with: puzzleReplacements))
     
-    print(reverseStepsTo(reach: puzzleInitialMolecule, with: reversePuzzleReplacements))
+//    print(reverseStepsTo(reach: puzzleInitialMolecule, with: reversePuzzleReplacements))
+    
+//    print(multithreadedRecursiveReverseStepsTo(reach: puzzleInitialMolecule, with: reversePuzzleReplacements))
+    
+    print(multithreadedRecursiveStepsTo(create: puzzleInitialMolecule, with: puzzleReplacements))
 }
