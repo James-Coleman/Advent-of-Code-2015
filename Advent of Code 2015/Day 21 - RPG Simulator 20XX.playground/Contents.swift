@@ -2,25 +2,6 @@ import Foundation
 
 var greeting = "Hello, playground"
 
-enum Weapon: CaseIterable {
-    case dagger, shortsword, warhammer, longsword, greataxe
-    
-    var cost: Int {
-        switch self {
-            case .dagger:
-                return 8
-            case .shortsword:
-                return 10
-            case .warhammer:
-                return 25
-            case .longsword:
-                return 40
-            case .greataxe:
-                return 74
-        }
-    }
-}
-
 struct Item: Equatable {
     let name: String
     let cost: Int
