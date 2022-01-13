@@ -9,6 +9,7 @@ import Foundation
 
 print("Hello, World!")
 
+day7()
 //day9()
 //day10()
 //day11()
